@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Google Map</title>
+    <style>
+        #map {
+          height: 100%;
+        }
+        html, body {
+          height: 100%;
+          margin: 0;
+          padding: 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>My Map</h1>
+    <div id="map"></div>
+    <script>
+        function initMap(){
+            let map = new google.maps.Map(document.getElementById('map'), {
+                center: {lat:-8.3405, lng:115.0920},
+                zoom: 8
+            })
+
+            addMarker({coordinates:{lat: -8.8149, lng: 115.0884}})
+            addMarker({coordinates:{lat: -8.5188, lng: 115.2586}})
+            addMarker({coordinates:{lat: -8.6913, lng: 115.1682}})
+
+            function addMarker(props){
+                let marker = new google.maps.Marker({
+                    position: props.coordinates,
+                    map: map,
+                    icon: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'
+                })
+                if(props.content){
+                    let infoWindow = new google.map.InfoWindow({content: props.content})
+                    marker.addListener('click', function(){
+                    infoWindow.open(map, marker)
+                    })
+                }
+           }
+        }
+    </script>
+    <script async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDiAa7tsge44OmmFX1R6JdTQSOL4uDBgQA&callback=initMap">
+</script>
+</body>
+</html>
